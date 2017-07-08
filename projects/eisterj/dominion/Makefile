@@ -3,11 +3,14 @@ CFLAGS = -Wall -fpic -coverage -lm
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
 
-dominion.o: dominion.h dominion.c rngs.o
+cardEffects.o: cardEffects.c cardEffects.h
+	gcc -c cardEffects.c -g $(CFLAGS)
+
+dominion.o: dominion.h dominion.c rngs.o cardEffects.o 
 	gcc -c dominion.c -g  $(CFLAGS)
 
-playdom: dominion.o playdom.c
-	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
+playdom: dominion.o playdom.c 
+	gcc -o playdom playdom.c -g dominion.o rngs.o cardEffects.o $(CFLAGS)
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
