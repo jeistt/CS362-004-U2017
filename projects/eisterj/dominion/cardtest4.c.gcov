@@ -1,0 +1,72 @@
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:5
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "cardEffects.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+        -:    9:#define CARD "VILLAGE CARD"
+        -:   10:
+        5:   11:int main() {
+        -:   12:	//initial values to initialize game
+        5:   13:	int seed = 99;
+        -:   14:	struct gameState game;
+        5:   15:	int choice1 = 1,
+        5:   16:		choice2 = 0,
+        5:   17:		choice3 = 0;
+        5:   18:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        5:   19:	int numPlayers = 2;
+        -:   20:
+        -:   21:	//initialize a gamestate. This will be copied and mannipulated for each test.
+        5:   22:	initializeGame(numPlayers, k, seed, &game);
+        -:   23:
+        5:   24:	int currentHandcount = game.handCount[0];
+        5:   25:	int currentDeckCount = game.deckCount[0];
+        5:   26:	int draw = 1;
+        5:   27:	int discard = 1;
+        -:   28:
+        -:   29:
+        5:   30:	printf("---------------------STARTING %s TESTS----------------------\n", CARD);
+        5:   31:	printf("TEST 1: ADDING 2 TREASURE CARDS\n");
+        5:   32:	int allAssertsPassed = 1; //set to 0 if an assert fails
+        5:   33:	int assertCount = 1;
+        -:   34:
+        5:   35:	int expectedHand = currentHandcount + draw - discard;
+        -:   36:
+        5:   37:	cardEffect(village, choice1, choice2, choice3, &game, 0, 0);
+        5:   38:	printf("Current hand count: %d\nExpected hand count: %d\n", game.handCount[0], expectedHand);
+        5:   39:	if (!assertTrue(expectedHand, game.handCount[0], &assertCount))
+    #####:   40:		allAssertsPassed = 0;
+        5:   41:	assertCount++;
+        -:   42:
+        5:   43:	int expectedDeck = currentDeckCount - draw;
+        -:   44:
+        5:   45:	printf("TEST 2: CHECKING DECK COUNT\n");
+        5:   46:	printf("Current deck count: %d\nExpected deck count: %d\n", game.deckCount[0], expectedDeck);
+        5:   47:	if (!assertTrue(expectedDeck, game.deckCount[0], &assertCount))
+    #####:   48:		allAssertsPassed = 0;
+        -:   49:
+        5:   50:	printf("TEST 3: ABLE TO MAKE TWO MORE ACTIONS\n");
+        5:   51:	printf("NUMBER OF ACTIONS LEFT: %d\n", game.numActions);
+        5:   52:	if (game.numActions < 2) {
+    #####:   53:		printf("ASSERT FAILED - NOT GRANTED ANOTHER ACTION\n");
+    #####:   54:		allAssertsPassed = 0;
+        -:   55:
+        -:   56:
+        -:   57:	}
+        -:   58:	else
+        5:   59:		printf("TEST 3 PASSED\n");
+        -:   60:
+        5:   61:	if (allAssertsPassed)
+        5:   62:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", CARD);
+        -:   63:	else
+    #####:   64:		printf("----------------------SOME %s TESTS FAILED-----------------------------------\n", CARD);
+        -:   65:
+        5:   66:	return 0;
+        -:   67:}

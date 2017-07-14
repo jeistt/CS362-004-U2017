@@ -1,0 +1,57 @@
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "cardEffects.h"
+#include <stdio.h>
+#include "rngs.h"
+#include <stdlib.h>
+#include <string.h>
+
+#define FNAME "DRAWCARD"
+
+
+int main() {
+	int allAssertsPassed = 1;
+	int seed = 99;
+	struct gameState game;
+	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+	int numPlayers = 2;
+
+	initializeGame(numPlayers, k, seed, &game);
+
+	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
+	printf("TEST 1\n");
+	printf("STARTING GAME... WITH 5 CARDS IN HAND.\n");
+	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+	if (game.handCount[0] != 5) {
+		allAssertsPassed = 0;
+		printf("TEST FAILED\n");
+	}
+	else printf("TEST PASSED\n");
+
+	printf("TEST 2\n");
+	printf("ADDING 1 CARD. EXPECTING 6 CARDS.\n");
+	drawCard(0, &game);
+	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+	if (game.handCount[0] != 6) {
+		allAssertsPassed = 0;
+		printf("TEST FAILED\n");
+	}
+	else printf("TEST PASSED\n");
+
+	printf("TEST 3\n");
+	printf("ADDING 1 CARD. EXPECTING 7 CARDS.\n");
+	drawCard(0, &game);
+	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+	if (game.handCount[0] != 7) {
+		allAssertsPassed = 0;
+		printf("TEST FAILED\n");
+	}
+	else printf("TEST PASSED\n");
+
+	if (allAssertsPassed)
+		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
+	else
+		printf("----------------------SOME %s TESTS FAILED-----------------------------------\n", FNAME);
+
+	return 0;
+}

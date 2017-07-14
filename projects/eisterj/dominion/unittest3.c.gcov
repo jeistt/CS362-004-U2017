@@ -1,0 +1,62 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:5
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "cardEffects.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+        -:    9:#define FNAME "DRAWCARD"
+        -:   10:
+        -:   11:
+        5:   12:int main() {
+        5:   13:	int allAssertsPassed = 1;
+        5:   14:	int seed = 99;
+        -:   15:	struct gameState game;
+        5:   16:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        5:   17:	int numPlayers = 2;
+        -:   18:
+        5:   19:	initializeGame(numPlayers, k, seed, &game);
+        -:   20:
+        5:   21:	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
+        5:   22:	printf("TEST 1\n");
+        5:   23:	printf("STARTING GAME... WITH 5 CARDS IN HAND.\n");
+        5:   24:	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+        5:   25:	if (game.handCount[0] != 5) {
+    #####:   26:		allAssertsPassed = 0;
+    #####:   27:		printf("TEST FAILED\n");
+        -:   28:	}
+        5:   29:	else printf("TEST PASSED\n");
+        -:   30:
+        5:   31:	printf("TEST 2\n");
+        5:   32:	printf("ADDING 1 CARD. EXPECTING 6 CARDS.\n");
+        5:   33:	drawCard(0, &game);
+        5:   34:	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+        5:   35:	if (game.handCount[0] != 6) {
+    #####:   36:		allAssertsPassed = 0;
+    #####:   37:		printf("TEST FAILED\n");
+        -:   38:	}
+        5:   39:	else printf("TEST PASSED\n");
+        -:   40:
+        5:   41:	printf("TEST 3\n");
+        5:   42:	printf("ADDING 1 CARD. EXPECTING 7 CARDS.\n");
+        5:   43:	drawCard(0, &game);
+        5:   44:	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+        5:   45:	if (game.handCount[0] != 7) {
+    #####:   46:		allAssertsPassed = 0;
+    #####:   47:		printf("TEST FAILED\n");
+        -:   48:	}
+        5:   49:	else printf("TEST PASSED\n");
+        -:   50:
+        5:   51:	if (allAssertsPassed)
+        5:   52:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
+        -:   53:	else
+    #####:   54:		printf("----------------------SOME %s TESTS FAILED-----------------------------------\n", FNAME);
+        -:   55:
+        5:   56:	return 0;
+        -:   57:}

@@ -1242,6 +1242,16 @@ int updateCoins(int player, struct gameState *state, int bonus)
   return 0;
 }
 
+int assertTrue(int val1, int val2, int *num) {
+	if (val1 != val2) {
+		printf("VALUES NOT EQUAL -- TEST %d FAILED\n", *num);
+		return 0;
+	}
+	else
+		printf("TEST %d PASSED\n", *num);
+	*num++;
+	return 1;
+}
 
 //end of dominion.c
 

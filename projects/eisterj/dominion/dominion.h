@@ -128,4 +128,8 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
+int assertTrue(int, int, int*);
+
+int compare(const void* a, const void* b);
+
 #endif
