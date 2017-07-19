@@ -1,7 +1,7 @@
         -:    0:Source:unittest1.c
         -:    0:Graph:unittest1.gcno
         -:    0:Data:unittest1.gcda
-        -:    0:Runs:5
+        -:    0:Runs:1
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -14,45 +14,45 @@
         -:    9:#define FNAME "COMPARE"
         -:   10:
         -:   11:
-        5:   12:int main() {
-        5:   13:	int eighty = 80;
-        5:   14:	int twenty = 20;
+        1:   12:int main() {
+        1:   13:	int eighty = 80;
+        1:   14:	int twenty = 20;
         -:   15:
-        5:   16:	int allAssertsPassed = 1;
+        1:   16:	int allAssertsPassed = 1;
         -:   17:
-        5:   18:	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
-        5:   19:	printf("TEST 1: 20 GREATER THAN 80\n");
+        1:   18:	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
+        1:   19:	printf("TEST 1: 20 GREATER THAN 80\n");
         -:   20:	
-        5:   21:	int t1 = compare(&eighty, &twenty);
-        5:   22:	if (t1 == 1)
-        5:   23:		printf("TRUE - TEST PASSED\n");
+        1:   21:	int t1 = compare(&eighty, &twenty);
+        1:   22:	if (t1 == 1)
+        1:   23:		printf("TRUE - TEST PASSED\n");
         -:   24:	else {
     #####:   25:		printf("FALSE - TEST FAILED\n");
     #####:   26:		allAssertsPassed = 0;
         -:   27:	}
         -:   28:
-        5:   29:	printf("TEST2: 80 LESS THAN 20\n");
-        5:   30:	t1 = compare(&twenty, &eighty);
-        5:   31:	if (t1 == -1)
-        5:   32:		printf("TRUE - TEST PASSED\n"); 
+        1:   29:	printf("TEST2: 80 LESS THAN 20\n");
+        1:   30:	t1 = compare(&twenty, &eighty);
+        1:   31:	if (t1 == -1)
+        1:   32:		printf("TRUE - TEST PASSED\n"); 
         -:   33:	else {
     #####:   34:		printf("FALSE - TEST FAILED\n");
     #####:   35:		allAssertsPassed = 0;
         -:   36:	}
         -:   37:	
-        5:   38:	printf("TEST3: 80 IS EQUAL TO 80\n");
-        5:   39:	t1 = compare(&twenty, &twenty);
-        5:   40:	if (t1 == 0)
-        5:   41:		printf("TRUE - TEST PASSED\n");
+        1:   38:	printf("TEST3: 80 IS EQUAL TO 80\n");
+        1:   39:	t1 = compare(&twenty, &twenty);
+        1:   40:	if (t1 == 0)
+        1:   41:		printf("TRUE - TEST PASSED\n");
         -:   42:	else {
     #####:   43:		printf("FALSE - TEST FAILED\n");
     #####:   44:		allAssertsPassed = 0;
         -:   45:	}
         -:   46:
-        5:   47:	if (allAssertsPassed)
-        5:   48:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
+        1:   47:	if (allAssertsPassed)
+        1:   48:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
         -:   49:	else
     #####:   50:		printf("----------------------SOME %s TESTS FAILED-----------------------------------\n", FNAME);
         -:   51:
-        5:   52:	return 0;
+        1:   52:	return 0;
         -:   53:}

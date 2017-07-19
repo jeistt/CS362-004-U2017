@@ -1,7 +1,7 @@
         -:    0:Source:unittest4.c
         -:    0:Graph:unittest4.gcno
         -:    0:Data:unittest4.gcda
-        -:    0:Runs:5
+        -:    0:Runs:1
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -13,42 +13,42 @@
         -:    8:
         -:    9:#define FNAME "DISCARD"
         -:   10:
-        5:   11:int main() {
-        5:   12:	int allAssertsPassed = 1;
-        5:   13:	int seed = 99;
+        1:   11:int main() {
+        1:   12:	int allAssertsPassed = 1;
+        1:   13:	int seed = 99;
         -:   14:	struct gameState game;
-        5:   15:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
-        5:   16:	int numPlayers = 2;
+        1:   15:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        1:   16:	int numPlayers = 2;
         -:   17:
-        5:   18:	initializeGame(numPlayers, k, seed, &game);
+        1:   18:	initializeGame(numPlayers, k, seed, &game);
         -:   19:
-        5:   20:	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
-        5:   21:	printf("TEST 1\n");
-        5:   22:	printf("STARTING GAME... WITH 5 CARDS IN HAND.\n");
-        5:   23:	printf("THERE ARE %d CARDS\n", game.handCount[0]);
+        1:   20:	printf("---------------------STARTING %s TESTS----------------------\n", FNAME);
+        1:   21:	printf("TEST 1\n");
+        1:   22:	printf("STARTING GAME... WITH 5 CARDS IN HAND.\n");
+        1:   23:	printf("THERE ARE %d CARDS\n", game.handCount[0]);
         -:   24:	
-        5:   25:	int expected = 4;
-        5:   26:	int sameVal = 1;
+        1:   25:	int expected = 4;
+        1:   26:	int sameVal = 1;
         -:   27:
-       35:   28:	while (game.handCount[0] > 0) {
-       25:   29:		printf("DISCARDING CARD. THERE SHOULD BE %d CARDS NOW.\n", expected);
-       25:   30:		discardCard(0, 0, &game, 0);
-       25:   31:		printf("YOU HAVE %d CARDS\n", game.handCount[0]);
-       25:   32:		if (game.handCount[0] != expected) {
+        7:   28:	while (game.handCount[0] > 0) {
+        5:   29:		printf("DISCARDING CARD. THERE SHOULD BE %d CARDS NOW.\n", expected);
+        5:   30:		discardCard(0, 0, &game, 0);
+        5:   31:		printf("YOU HAVE %d CARDS\n", game.handCount[0]);
+        5:   32:		if (game.handCount[0] != expected) {
     #####:   33:			sameVal = 0;
     #####:   34:			allAssertsPassed = 0;
         -:   35:		}
-       25:   36:		expected--;
+        5:   36:		expected--;
         -:   37:
         -:   38:	}
         -:   39:
-        5:   40:	if (sameVal)
-        5:   41:		printf("TEST PASSED\n");
+        1:   40:	if (sameVal)
+        1:   41:		printf("TEST PASSED\n");
         -:   42:
-        5:   43:	if (allAssertsPassed)
-        5:   44:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
+        1:   43:	if (allAssertsPassed)
+        1:   44:		printf("----------------------ALL %s TESTS PASSED-----------------------\n", FNAME);
         -:   45:	else
     #####:   46:		printf("----------------------SOME %s TESTS FAILED-----------------------------------\n", FNAME);
         -:   47:
-        5:   48:	return 0;
+        1:   48:	return 0;
         -:   49:}
