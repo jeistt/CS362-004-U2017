@@ -9,6 +9,30 @@ cardEffects.o: cardEffects.c cardEffects.h
 dominion.o: dominion.h dominion.c rngs.o cardEffects.o 
 	gcc -c dominion.c -g  $(CFLAGS)
 
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o cardEffects.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o cardEffects.o $(CFLAGS)
+
+	
+rtaout: randomtestadventurer
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov randomtestadventurer.c >> randomtestadventurer.out 	
+	cat randomtestadventurer.c.gcov >> randomtestadventurer.out
+
+randomtestcard1: randomtestcard1.c dominion.o rngs.o cardEffects.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o cardEffects.o $(CFLAGS)
+
+rtc1out: randomtestcard1
+	./randomtestcard1 >> randomtestcard1.out
+	gcov randomtestcard1.c >> randomtestcard1.out
+	cat randomtestcard1.c.gcov >> randomtestcard1.out
+
+randomtestcard2: randomtestcard2.c dominion.o rngs.o cardEffects.o
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o cardEffects.o $(CFLAGS)
+
+rtc2out: randomtestcard2
+	./randomtestcard2 >> randomtestcard2.out
+	gcov randomtestcard2.c >> randomtestcard2.out
+	cat randomtestcard2.c.gcov >> randomtestcard2.out
 
 cardtest1: cardtest1.c dominion.o rngs.o cardEffects.o
 	gcc -o cardtest1 -g cardtest1.c dominion.o rngs.o cardEffects.o $(CFLAGS)
@@ -29,42 +53,12 @@ unittest1: unittest1.c dominion.o rngs.o cardEffects.o
 
 unittest2: unittest2.c dominion.o rngs.o cardEffects.o
 	gcc -o unittest2 -g unittest2.c dominion.o rngs.o cardEffects.o $(CFLAGS)
-
 unittest3: unittest3.c dominion.o rngs.o cardEffects.o
 	gcc -o unittest3 -g unittest3.c dominion.o rngs.o cardEffects.o $(CFLAGS)
 
 unittest4: unittest4.c dominion.o rngs.o cardEffects.o
 	gcc -o unittest4 -g unittest4.c dominion.o rngs.o cardEffects.o $(CFLAGS)
 
-unittestresults: cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
-	cardtest1 >> unittestresults.out
-	cardtest2 >> unittestresults.out
-	cardtest3 >> unittestresults.out
-	cardtest4 >> unittestresults.out
-	unittest1 >> unittestresults.out
-	unittest2 >> unittestresults.out
-	unittest3 >> unittestresults.out
-	unittest4 >> unittestresults.out
-	gcov cardtest1.c  >> unittestresults.out
-	cat cardtest1.c.gcov  >> unittestresults.out
-	gcov cardtest2.c  >> unittestresults.out
-	cat cardtest2.c.gcov  >> unittestresults.out
-	gcov cardtest3.c  >> unittestresults.out
-	cat cardtest3.c.gcov  >> unittestresults.out
-	gcov cardtest4.c  >> unittestresults.out
-	cat cardtest4.c.gcov  >> unittestresults.out	
-	gcov unittest1.c  >> unittestresults.out
-	cat unittest1.c.gcov  >> unittestresults.out
-	gcov unittest2.c  >> unittestresults.out
-	cat unittest2.c.gcov  >> unittestresults.out
-	gcov unittest3.c  >> unittestresults.out
-	cat unittest3.c.gcov  >> unittestresults.out
-	gcov unittest4.c  >> unittestresults.out
-	cat unittest4.c.gcov  >> unittestresults.out
-	gcov -b cardEffects.c >> unittestresults.out
-	cat cardEffects.c.gcov >> unittestresults.out
-	gcov -b dominion.c >> unittestresults.out
-	cat dominion.c.gcov >> unittestresults.out
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o cardEffects.o $(CFLAGS)
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/

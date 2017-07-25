@@ -1,0 +1,219 @@
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 7
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 6
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 6
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 3
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 2
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 8
+TEST 1 PASSED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 10
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 7
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 7
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+---------------------STARTING ADVENTURER TESTS----------------------
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 7
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: ENSURE ONLY TREASURE CARDS ADDED
+TEST 2 PASSED
+RANDOM TEST FAILED
+        -:    0:Source:randomtestadventurer.c
+        -:    0:Graph:randomtestadventurer.gcno
+        -:    0:Data:randomtestadventurer.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "cardEffects.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+        -:    9:#define CARD "ADVENTURER"
+        -:   10:
+        2:   11:int main() {
+        -:   12:	//initial values to initialize game
+        2:   13:	int seed = 99;
+        -:   14:	struct gameState game;
+        2:   15:	int choice1 = 1,
+        2:   16:		choice2 = 0,
+        2:   17:		choice3 = 0;
+        2:   18:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        -:   19:
+        -:   20:	int t;
+        2:   21:	int passed = 1;
+       22:   22:	for (t = 0; t < 10; t++) {
+       20:   23:		int numPlayers = rand() % 4;
+        -:   24:
+        -:   25:		//initialize a gamestate. This will be copied and mannipulated for each test.
+       20:   26:		initializeGame(numPlayers, k, seed, &game);
+        -:   27:
+       20:   28:		int currentHandcount = rand() % 10;
+       20:   29:		int currentDeckCount = game.deckCount[0];
+       20:   30:		int draw = 2;
+       20:   31:		int discard = 1;
+        -:   32:
+        -:   33:
+       20:   34:		printf("---------------------STARTING %s TESTS----------------------\n", CARD);
+       20:   35:		printf("TEST 1: ADDING 2 TREASURE CARDS\n");
+       20:   36:		int allAssertsPassed = 1; //set to 0 if an assert fails
+       20:   37:		int assertCount = 1;
+        -:   38:
+       20:   39:		int expectedHand = currentHandcount + draw - discard;
+        -:   40:
+       20:   41:		cardEffect(adventurer, choice1, choice2, choice3, &game, 0, 0);
+       20:   42:		printf("Current hand count: %d\nExpected hand count: %d\n", game.handCount[0], expectedHand);
+       20:   43:		if (!assertTrue(expectedHand, game.handCount[0], &assertCount))
+       18:   44:			allAssertsPassed = 0;
+       20:   45:		assertCount++;
+        -:   46:
+       20:   47:		int expectedDeck = currentDeckCount - draw;
+        -:   48:
+        -:   49:
+       20:   50:		printf("TEST 2: ENSURE ONLY TREASURE CARDS ADDED\n");
+       20:   51:		int cardDrawn = game.hand[0][game.handCount[0] - 1];
+       20:   52:		int cardDrawn2 = game.hand[0][game.handCount[0] - 2];
+       20:   53:		if ((cardDrawn != silver && cardDrawn != copper && cardDrawn != gold)
+    #####:   54:			&& (cardDrawn2 != silver && cardDrawn2 != copper && cardDrawn2 != gold)) {
+    #####:   55:			printf("ASSERT FAILED - NON-TREASURE CARD ADDED\n");
+    #####:   56:			allAssertsPassed = 0;
+        -:   57:		}
+        -:   58:		else
+       20:   59:			printf("TEST 2 PASSED\n");
+       20:   60:		if (!allAssertsPassed)
+       18:   61:			passed = 0;
+        -:   62:	}
+        2:   63:	if (passed == 0)
+        2:   64:		printf("RANDOM TEST FAILED\n");
+        -:   65:	else
+    #####:   66:		printf("ALL RANDOM TESTS PASSED");
+        2:   67:}
+        -:    0:Source:randomtestadventurer.c
+        -:    0:Graph:randomtestadventurer.gcno
+        -:    0:Data:randomtestadventurer.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "cardEffects.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+        -:    9:#define CARD "ADVENTURER"
+        -:   10:
+        2:   11:int main() {
+        -:   12:	//initial values to initialize game
+        2:   13:	int seed = 99;
+        -:   14:	struct gameState game;
+        2:   15:	int choice1 = 1,
+        2:   16:		choice2 = 0,
+        2:   17:		choice3 = 0;
+        2:   18:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        -:   19:
+        -:   20:	int t;
+        2:   21:	int passed = 1;
+       22:   22:	for (t = 0; t < 10; t++) {
+       20:   23:		int numPlayers = rand() % 4;
+        -:   24:
+        -:   25:		//initialize a gamestate. This will be copied and mannipulated for each test.
+       20:   26:		initializeGame(numPlayers, k, seed, &game);
+        -:   27:
+       20:   28:		int currentHandcount = rand() % 10;
+       20:   29:		int currentDeckCount = game.deckCount[0];
+       20:   30:		int draw = 2;
+       20:   31:		int discard = 1;
+        -:   32:
+        -:   33:
+       20:   34:		printf("---------------------STARTING %s TESTS----------------------\n", CARD);
+       20:   35:		printf("TEST 1: ADDING 2 TREASURE CARDS\n");
+       20:   36:		int allAssertsPassed = 1; //set to 0 if an assert fails
+       20:   37:		int assertCount = 1;
+        -:   38:
+       20:   39:		int expectedHand = currentHandcount + draw - discard;
+        -:   40:
+       20:   41:		cardEffect(adventurer, choice1, choice2, choice3, &game, 0, 0);
+       20:   42:		printf("Current hand count: %d\nExpected hand count: %d\n", game.handCount[0], expectedHand);
+       20:   43:		if (!assertTrue(expectedHand, game.handCount[0], &assertCount))
+       18:   44:			allAssertsPassed = 0;
+       20:   45:		assertCount++;
+        -:   46:
+       20:   47:		int expectedDeck = currentDeckCount - draw;
+        -:   48:
+        -:   49:
+       20:   50:		printf("TEST 2: ENSURE ONLY TREASURE CARDS ADDED\n");
+       20:   51:		int cardDrawn = game.hand[0][game.handCount[0] - 1];
+       20:   52:		int cardDrawn2 = game.hand[0][game.handCount[0] - 2];
+       20:   53:		if ((cardDrawn != silver && cardDrawn != copper && cardDrawn != gold)
+    #####:   54:			&& (cardDrawn2 != silver && cardDrawn2 != copper && cardDrawn2 != gold)) {
+    #####:   55:			printf("ASSERT FAILED - NON-TREASURE CARD ADDED\n");
+    #####:   56:			allAssertsPassed = 0;
+        -:   57:		}
+        -:   58:		else
+       20:   59:			printf("TEST 2 PASSED\n");
+       20:   60:		if (!allAssertsPassed)
+       18:   61:			passed = 0;
+        -:   62:	}
+        2:   63:	if (passed == 0)
+        2:   64:		printf("RANDOM TEST FAILED\n");
+        -:   65:	else
+    #####:   66:		printf("ALL RANDOM TESTS PASSED");
+        2:   67:}
+File 'randomtestadventurer.c'
+Lines executed:89.74% of 39
+Creating 'randomtestadventurer.c.gcov'
+
