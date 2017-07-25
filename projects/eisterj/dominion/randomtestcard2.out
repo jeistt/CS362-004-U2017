@@ -1,0 +1,155 @@
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 6
+Expected hand count: 8
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 3
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 7
+Expected hand count: 7
+TEST 1 PASSED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 1
+Expected deck count: 0
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 7
+Expected hand count: 7
+TEST 1 PASSED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 0
+Expected deck count: -2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 6
+Expected hand count: 4
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 3
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 7
+Expected hand count: 3
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 1
+Expected deck count: 0
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 6
+Expected hand count: 9
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 3
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 6
+Expected hand count: 11
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 3
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 6
+Expected hand count: 8
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 3
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 7
+Expected hand count: 8
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 1
+Expected deck count: 0
+VALUES NOT EQUAL -- TEST 2 FAILED
+---------------------STARTING SMITHY TESTS----------------------
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 7
+Expected hand count: 8
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT 
+Current deck count: 0
+Expected deck count: -2
+VALUES NOT EQUAL -- TEST 2 FAILED
+ALL RANDOM TESTS PASSEDFile 'randomtestcard2.c'
+Lines executed:100.00% of 32
+Creating 'randomtestcard2.c.gcov'
+
+        -:    0:Source:randomtestcard2.c
+        -:    0:Graph:randomtestcard2.gcno
+        -:    0:Data:randomtestcard2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "cardEffects.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <string.h>
+        -:    8:
+        -:    9:#define CARD "SMITHY"
+        -:   10:
+        1:   11:int main() {
+        -:   12:	//initial values to initialize game
+        1:   13:	int seed = 99;
+        -:   14:	struct gameState game;
+        1:   15:	int choice1 = 1,
+        1:   16:		choice2 = 0,
+        1:   17:		choice3 = 0;
+        1:   18:	int k[10] = { adventurer, smithy, village, minion, mine, cutpurse, gardens, tribute, feast, outpost };
+        -:   19:	int t;
+        1:   20:	int passed = 1;
+       11:   21:	for (t = 0; t < 10; t++) {
+       10:   22:		int numPlayers = rand() % 4;
+        -:   23:
+        -:   24:	//initialize a gamestate. This will be copied and mannipulated for each test.
+       10:   25:	initializeGame(numPlayers, k, seed, &game);
+        -:   26:
+       10:   27:	int currentHandcount = rand() % 10;
+       10:   28:	int currentDeckCount = game.deckCount[0];
+       10:   29:	int draw = 3;
+       10:   30:	int discard = 1;
+        -:   31:
+        -:   32:
+       10:   33:	printf("---------------------STARTING %s TESTS----------------------\n", CARD);
+       10:   34:	printf("TEST 1: ADDING 3 TREASURE CARDS\n");
+       10:   35:	int allAssertsPassed = 1; //set to 0 if an assert fails
+       10:   36:	int assertCount = 1;
+        -:   37:
+       10:   38:	int expectedHand = currentHandcount + draw - discard;
+        -:   39:
+       10:   40:	cardEffect(smithy, choice1, choice2, choice3, &game, 0, 0);
+       10:   41:	printf("Current hand count: %d\nExpected hand count: %d\n", game.handCount[0], expectedHand);
+       10:   42:	if (!assertTrue(expectedHand, game.handCount[0], &assertCount))
+        8:   43:		allAssertsPassed = 0;
+       10:   44:	assertCount++;
+        -:   45:
+       10:   46:	int expectedDeck = currentDeckCount - draw;
+        -:   47:
+       10:   48:	printf("TEST 2: CHECKING DECK COUNT \n");
+       10:   49:	printf("Current deck count: %d\nExpected deck count: %d\n", game.deckCount[0], expectedDeck);
+       10:   50:	if (!assertTrue(expectedDeck, game.deckCount[0], &assertCount))
+       10:   51:		allAssertsPassed = 0;
+        -:   52:}
+        1:   53:	if (passed == 1)
+        1:   54:		printf("ALL RANDOM TESTS PASSED");
+        1:   55:	return 0;
+        -:   56:}
