@@ -1,12 +1,12 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
-#include "cardEffects.h"
+//#include "cardEffects.h"
 #include <stdio.h>
 #include "rngs.h"
 #include <stdlib.h>
 #include <string.h>
 
-#define CARD "ADVENTURER"
+#define CARD "GREAT HALL"
 
 int main() {
 	//initial values to initialize game
@@ -23,7 +23,7 @@ int main() {
 
 	int currentHandcount = game.handCount[0];
 	int currentDeckCount = game.deckCount[0];
-	int draw = 2;
+	int draw = 1;
 	int discard = 1;
 
 
@@ -34,7 +34,7 @@ int main() {
 
 	int expectedHand = currentHandcount + draw - discard;
 
-	cardEffect(adventurer, choice1, choice2, choice3, &game, 0, 0);
+	cardEffect(great_hall, choice1, choice2, choice3, &game, 0, 0);
 	printf("Current hand count: %d\nExpected hand count: %d\n", game.handCount[0], expectedHand);
 	if (!assertTrue(expectedHand, game.handCount[0], &assertCount))
 		allAssertsPassed = 0;
@@ -42,17 +42,20 @@ int main() {
 
 	int expectedDeck = currentDeckCount - draw;
 
+	printf("TEST 2: CHECKING DECK COUNT\n");
+	printf("Current deck count: %d\nExpected deck count: %d\n", game.deckCount[0], expectedDeck);
+	if (!assertTrue(expectedDeck, game.deckCount[0], &assertCount))
+		allAssertsPassed = 0;
 
-	printf("TEST 3: ENSURE ONLY TREASURE CARDS ADDED\n");
-	int cardDrawn = game.hand[0][game.handCount[0] - 1];
-	int cardDrawn2 = game.hand[0][game.handCount[0] - 2];
-	if ((cardDrawn != silver && cardDrawn != copper && cardDrawn != gold)
-		&& (cardDrawn2 != silver && cardDrawn2 != copper && cardDrawn2 != gold)) {
-		printf("ASSERT FAILED - NON-TREASURE CARD ADDED\n");
+	printf("TEST 3: ABLE TO MAKE ANOTHER ACTION\n");
+	printf("%d\n", game.numActions);
+	if (game.numActions < 1){
+		printf("ASSERT FAILED - NOT GRANTED ANOTHER ACTION\n");
 		allAssertsPassed = 0;
 	}
 	else
 		printf("TEST 3 PASSED\n");
+
 	if (allAssertsPassed)
 		printf("----------------------ALL %s TESTS PASSED-----------------------\n", CARD);
 	else
