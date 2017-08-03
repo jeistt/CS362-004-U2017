@@ -1,0 +1,15 @@
+Bug Report:
+I found three bugs in my teammate’s game: two in the Smithy card and one in Adventurer. My test for the Adventurer card was not very helpful at finding the source of the problem beyond showing that it existed and that it was serious. Here’s the printout from the test that failed:
+TEST 1: ADDING 2 TREASURE CARDS
+Current hand count: -629
+Expected hand count: 6
+The Smithy tests were more useful for finding the bug. It was clearly an issue with the loop condition causing it to iterate one too many times. This is the printout from the two tests that failed in Smithy:
+TEST 1: ADDING 3 TREASURE CARDS
+Current hand count: 8
+Expected hand count: 7
+VALUES NOT EQUAL -- TEST 1 FAILED
+TEST 2: CHECKING DECK COUNT
+Current deck count: 1
+Expected deck count: 2
+VALUES NOT EQUAL -- TEST 2 FAILED
+I counted these as two separate bugs, though they are related since the number of cards in the deck is related to the number of cards in the player’s hand. 
